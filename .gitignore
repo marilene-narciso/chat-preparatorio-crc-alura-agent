@@ -1,0 +1,27 @@
+# Segredos
+.env
+
+# Ambiente virtual
+venv/
+.venv/
+env/
+
+# Cache e artefatos do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
+
+# Arquivos temporários e de sistema
+*.tmp
+*.log
+.DS_Store
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Configurações locais do Claude Code
+.claude/
