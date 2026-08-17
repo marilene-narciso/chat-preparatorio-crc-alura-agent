@@ -1,3 +1,9 @@
 pypdf
 pandas
+google-genai
+python-dotenv
 pytest
+
+# Fixado nesta versão porque versões mais novas não têm pacote pronto
+# para alguns ambientes e exigiriam compilar do zero (Rust/OpenSSL).
+cryptography==43.0.3
