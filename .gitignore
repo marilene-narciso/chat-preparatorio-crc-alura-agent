@@ -19,6 +19,9 @@ __pycache__/
 *.log
 .DS_Store
 
+# Índice vetorial (gerado automaticamente a partir dos documentos)
+data/indice_vetorial/
+
 # Editor / IDE
 .vscode/
 .idea/

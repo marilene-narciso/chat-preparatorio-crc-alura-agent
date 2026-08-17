@@ -33,6 +33,7 @@ def ler_pdf(caminho_pdf):
         "quantidade_paginas": len(leitor.pages),
         "quantidade_caracteres": len(texto_completo),
         "amostra_texto": texto_completo[:300].strip(),
+        "texto": texto_completo,
     }
 
 

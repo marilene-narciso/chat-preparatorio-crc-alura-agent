@@ -20,4 +20,5 @@ def ler_csv(caminho_csv):
         "quantidade_linhas": len(tabela),
         "quantidade_caracteres": len(texto_completo),
         "amostra_texto": texto_completo[:300].strip(),
+        "texto": texto_completo,
     }

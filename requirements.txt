@@ -2,6 +2,9 @@ pypdf
 pandas
 google-genai
 python-dotenv
+langchain
+langchain-community
+faiss-cpu
 pytest
 
 # Fixado nesta versão porque versões mais novas não têm pacote pronto
