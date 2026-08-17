@@ -3,6 +3,7 @@
 Fluxo: documentos -> trechos -> embeddings -> índice vetorial (FAISS).
 """
 
+import time
 from pathlib import Path
 
 from langchain_community.vectorstores import FAISS
@@ -16,6 +17,12 @@ PASTA_INDICE = Path(__file__).resolve().parent.parent / "data" / "indice_vetoria
 
 TAMANHO_TRECHO = 1500
 SOBREPOSICAO_TRECHO = 200
+
+# A API do Gemini às vezes recusa chamadas de indexação com muito volume de
+# texto de uma vez. Construir o índice em pedaços pequenos, salvando o
+# progresso a cada pedaço, é mais lento mas bem mais confiável.
+TAMANHO_PEDACO_INDEXACAO = 25
+PAUSA_ENTRE_PEDACOS_SEGUNDOS = 3
 
 
 def dividir_em_trechos(texto, nome_arquivo):
@@ -57,9 +64,21 @@ def criar_ou_carregar_indice(forcar_reconstrucao=False):
             "Nenhum documento encontrado em data/documentos para indexar."
         )
 
-    indice = FAISS.from_documents(trechos, embeddings)
     PASTA_INDICE.mkdir(parents=True, exist_ok=True)
-    indice.save_local(str(PASTA_INDICE))
+
+    indice = None
+    for inicio in range(0, len(trechos), TAMANHO_PEDACO_INDEXACAO):
+        pedaco = trechos[inicio:inicio + TAMANHO_PEDACO_INDEXACAO]
+        if indice is None:
+            indice = FAISS.from_documents(pedaco, embeddings)
+        else:
+            indice.add_documents(pedaco)
+
+        indice.save_local(str(PASTA_INDICE))  # salva o progresso a cada pedaço
+
+        if inicio + TAMANHO_PEDACO_INDEXACAO < len(trechos):
+            time.sleep(PAUSA_ENTRE_PEDACOS_SEGUNDOS)
+
     return indice
 
 
