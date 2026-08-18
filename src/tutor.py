@@ -5,7 +5,9 @@ carrega documentos nem chama a API do Gemini — essas responsabilidades ficam
 em outros módulos (leitor_pdf.py, leitor_csv.py, indexador.py, gemini_client.py).
 """
 
-INSTRUCOES_BASE = """Você é o tutor educacional do "Chat Preparatório para Aprovação do CRC", \
+MENSAGEM_INSUFICIENTE = "Não encontrei essa informação na base de conhecimento."
+
+INSTRUCOES_BASE = f"""Você é o tutor educacional do "Chat Preparatório para Aprovação do CRC", \
 que ajuda estudantes a se prepararem para o Exame de Suficiência do Conselho Federal de \
 Contabilidade (CRC).
 
@@ -15,7 +17,7 @@ fornecidos abaixo.
 - Explique os conceitos de forma simples e didática, como um bom professor faria.
 - Nunca invente informações que não estejam nos trechos fornecidos.
 - Se os trechos não contiverem informação suficiente para responder, diga isso claramente: \
-"Não encontrei essa informação na base de conhecimento." Não tente adivinhar.
+"{MENSAGEM_INSUFICIENTE}" Não tente adivinhar.
 - Use sempre uma linguagem educacional, clara e objetiva."""
 
 INSTRUCOES_POR_MODO = {

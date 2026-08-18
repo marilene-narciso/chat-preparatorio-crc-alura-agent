@@ -5,6 +5,7 @@ python-dotenv
 langchain
 langchain-community
 faiss-cpu
+streamlit
 pytest
 
 # Fixado nesta versão porque versões mais novas não têm pacote pronto
