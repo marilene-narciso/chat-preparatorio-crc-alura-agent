@@ -1,0 +1,4 @@
+# Dependências extras, usadas só para rodar os testes automatizados
+# (não são necessárias para executar a aplicação em produção).
+-r requirements.txt
+pytest
