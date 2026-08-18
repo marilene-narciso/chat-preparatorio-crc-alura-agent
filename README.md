@@ -39,27 +39,42 @@ deixando claro quando a informação não estiver disponível na base.
 5. A resposta é exibida na interface, junto com os nomes dos arquivos usados como
    fonte.
 
-## Arquitetura
+## Arquitetura da Solução
 
 ```mermaid
 flowchart TD
-    subgraph Indexacao["Indexação (executada quando o índice não existe)"]
-        DOC[("PDFs / CSV em data/documentos/")] --> LEITOR["leitor_pdf.py / leitor_csv.py<br/>extração de texto"]
-        LEITOR --> DIVISOR["indexador.py<br/>divisão em trechos"]
-        DIVISOR --> EMBED["embeddings_gemini.py<br/>Gemini gera os embeddings"]
-        EMBED --> FAISS[("Índice vetorial FAISS<br/>data/indice_vetorial/")]
+    subgraph FASE1["Preparação da base de conhecimento (executada uma vez)"]
+        DOC["Documentos PDF/CSV"] --> LEITURA["Leitura e divisão em trechos"]
+        LEITURA --> EMB["Embeddings gerados pelo Gemini"]
+        EMB --> VETOR[("Banco Vetorial (FAISS)")]
     end
 
-    subgraph Consulta["Consulta (a cada pergunta)"]
-        USER["Pergunta da usuária"] --> APP["app.py<br/>interface Streamlit"]
-        APP --> RAG["rag.py<br/>responder_pergunta()"]
-        RAG --> BUSCA["Busca no índice FAISS<br/>trechos mais relevantes"]
-        FAISS -.-> BUSCA
-        BUSCA --> TUTOR["tutor.py<br/>monta o prompt com as regras do tutor"]
-        TUTOR --> GEMINI["gemini_client.py<br/>Gemini gera a resposta"]
-        GEMINI --> RESP["Resposta + fontes exibidas na tela"]
+    subgraph FASE2["A cada pergunta do usuário"]
+        USUARIO["Usuário"] --> STREAMLIT["Interface Streamlit"]
+        STREAMLIT --> AGENTE["Agente RAG (rag.py)"]
+        AGENTE --> VETOR
+        VETOR --> AGENTE
+        AGENTE --> GEMINI["Gemini"]
+        GEMINI --> AGENTE
+        AGENTE --> STREAMLIT
+        STREAMLIT --> USUARIO
     end
 ```
+
+O fluxo funciona em duas etapas:
+
+- Os documentos PDF/CSV de `data/documentos/` são lidos e divididos em trechos
+  menores (`leitor_pdf.py`, `leitor_csv.py`, `indexador.py`).
+- Esses trechos são transformados em embeddings pelo Gemini e guardados no banco
+  vetorial FAISS (`embeddings_gemini.py`) — isso acontece uma única vez, não a cada
+  pergunta.
+- Quando a usuária envia uma pergunta pela interface Streamlit (`app.py`), o agente
+  RAG (`rag.py`) recebe a pergunta e coordena o processo.
+- O agente busca no banco vetorial os trechos mais relacionados à pergunta.
+- Esses trechos são usados como contexto: o tutor (`tutor.py`) monta o prompt com as
+  regras de não inventar respostas, e o Gemini (`gemini_client.py`) gera a resposta
+  final com base neles.
+- A resposta, junto com as fontes usadas, retorna para a usuária pela interface.
 
 ## Base de Conhecimento
 
