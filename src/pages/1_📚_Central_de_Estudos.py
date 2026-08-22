@@ -11,9 +11,7 @@ import streamlit as st
 PASTA_RAIZ = Path(__file__).resolve().parent.parent.parent
 CAMINHO_VIDEOS = PASTA_RAIZ / "data" / "videos.json"
 
-CATEGORIAS = ["Revisão de Matéria", "Revisão de Provas", "Reconhecimento de Voz"]
-
-st.set_page_config(page_title="Central de Estudos", page_icon="📚")
+CATEGORIAS = ["Revisão de Matéria", "Revisão de Provas"]
 
 st.title("Central de Estudos")
 st.caption("Vídeos de apoio organizados por categoria, para complementar seus estudos.")

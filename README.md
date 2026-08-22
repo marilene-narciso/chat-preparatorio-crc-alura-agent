@@ -41,7 +41,7 @@ deixando claro quando a informação não estiver disponível na base.
 
 Além do chat, a aplicação tem uma segunda página, **"Central de Estudos"**, acessível
 pelo menu lateral. Ela reúne vídeos de apoio do YouTube, organizados em abas por
-categoria (Revisão de Matéria, Revisão de Provas e Reconhecimento de Voz), lidos de
+categoria (Revisão de Matéria e Revisão de Provas), lidos de
 `data/videos.json`. É um conteúdo complementar, independente do pipeline RAG.
 
 ## Arquitetura da Solução
