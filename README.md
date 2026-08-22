@@ -39,6 +39,11 @@ deixando claro quando a informação não estiver disponível na base.
 5. A resposta é exibida na interface, junto com os nomes dos arquivos usados como
    fonte.
 
+Além do chat, a aplicação tem uma segunda página, **"Central de Estudos"**, acessível
+pelo menu lateral. Ela reúne vídeos de apoio do YouTube, organizados em abas por
+categoria (Revisão de Matéria, Revisão de Provas e Reconhecimento de Voz), lidos de
+`data/videos.json`. É um conteúdo complementar, independente do pipeline RAG.
+
 ## Arquitetura da Solução
 
 ```mermaid
@@ -104,7 +109,8 @@ A base de conhecimento fica em `data/documentos/` e contém:
 chat-crc-challenge/
 ├── data/
 │   ├── documentos/        # PDFs e CSV usados como base de conhecimento
-│   └── indice_vetorial/   # índice FAISS gerado automaticamente (não vai para o Git)
+│   ├── indice_vetorial/   # índice FAISS gerado automaticamente (não vai para o Git)
+│   └── videos.json        # vídeos de apoio exibidos na página "Central de Estudos"
 ├── src/
 │   ├── leitor_pdf.py          # leitura de PDF (pypdf)
 │   ├── leitor_csv.py          # leitura de CSV (pandas)
@@ -114,7 +120,9 @@ chat-crc-challenge/
 │   ├── gemini_client.py       # comunicação simples com o Gemini (pergunta -> resposta)
 │   ├── tutor.py                # personalidade/instruções do tutor (separado da lógica de documentos)
 │   ├── rag.py                  # pipeline RAG completo (busca + tutor + Gemini)
-│   └── app.py                  # interface Streamlit
+│   ├── app.py                  # interface Streamlit (página principal: o chat)
+│   └── pages/
+│       └── 1_📚_Central_de_Estudos.py   # segunda página: vídeos de apoio por categoria
 ├── tests/                  # testes automatizados (um arquivo por módulo)
 ├── screenshots/             # evidências do deploy na OCI
 ├── VALIDACAO.md             # roteiro de validação com perguntas e respostas reais
