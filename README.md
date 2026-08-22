@@ -89,14 +89,14 @@ A base de conhecimento fica em `data/documentos/` e contém:
 ## Tecnologias Utilizadas
 
 - **Python** — linguagem principal do projeto
-- **LangChain** (`langchain`, `langchain-community`) — divisão de texto em trechos e integração com o índice vetorial
+- **LangChain** (`langchain-core`, `langchain-text-splitters`, `langchain-community`) — divisão de texto em trechos e integração com o índice vetorial
 - **pypdf** — leitura e extração de texto de arquivos PDF
 - **pandas** — leitura de arquivos CSV
 - **FAISS** (`faiss-cpu`) — índice vetorial local para busca por similaridade
 - **google-genai** — SDK oficial do Google para o Gemini (geração de texto e de embeddings)
 - **Streamlit** — interface web do assistente
 - **python-dotenv** — carregamento da chave de API a partir do arquivo `.env`
-- **pytest** — testes automatizados
+- **pytest** — testes automatizados (instalado via `requirements-dev.txt`, não faz parte da aplicação em produção)
 
 ## Estrutura de Pastas
 
@@ -144,6 +144,16 @@ source venv/bin/activate      # Windows: venv\Scripts\activate
 
 # Instalar as dependências
 pip install -r requirements.txt
+```
+
+`requirements.txt` instala só o necessário para **rodar a aplicação**. Se você quiser
+também rodar a suíte de testes automatizados (`pytest`), instale as dependências de
+desenvolvimento em vez disso — `requirements-dev.txt` já inclui tudo de
+`requirements.txt` mais o `pytest`:
+
+```bash
+pip install -r requirements-dev.txt
+pytest
 ```
 
 ## Configuração da API
@@ -235,8 +245,9 @@ Respostas reais geradas pelo sistema (cópia literal, sem edição):
   podem receber respostas incompletas.
 - O `exemplo_topicos_crc.csv` foi criado para este projeto especificamente para
   demonstrar o suporte a CSV — não é um documento oficial do CFC.
-- A aplicação hoje roda apenas localmente; o deploy na OCI ainda está pendente (ver
-  seção "Deploy na OCI" abaixo).
+- O deploy na OCI (ver seção abaixo) roda em uma instância gratuita simples, sem
+  balanceamento de carga ou autenticação — adequado para demonstração, não para uso
+  em produção com muitos usuários simultâneos.
 
 ## Segurança
 
@@ -252,12 +263,24 @@ Respostas reais geradas pelo sistema (cópia literal, sem edição):
 
 ## Deploy na OCI
 
-TODO — implantação na Oracle Cloud Infrastructure (OCI Compute) ainda não realizada.
+A aplicação está implantada em uma instância **OCI Compute** (shape
+`VM.Standard.E2.1.Micro`, camada Always Free, região São Paulo), seguindo o roteiro
+documentado em [`DEPLOY_OCI.md`](DEPLOY_OCI.md): clonagem do repositório, ambiente
+virtual, instalação via `requirements.txt`, configuração da `GOOGLE_API_KEY` em um
+`.env` local (nunca commitado) e execução do Streamlit.
+
+**Aplicação publicada em:** http://163.176.133.161:8501
+
+> Este é um deploy de demonstração para o Challenge Alura, rodando em uma instância
+> gratuita. Por rodar sem autenticação, o uso indevido por terceiros pode consumir a
+> cota da API — o link é mantido no ar para fins de avaliação.
 
 ## Evidência da Aplicação
 
-TODO — adicionar aqui screenshots/link da aplicação rodando na OCI (arquivos em
-`screenshots/`, hoje vazio).
+Print real da aplicação em produção na OCI, respondendo a uma pergunta com base na
+base de conhecimento (acesse `screenshots/deploy-oci.png` para a imagem completa):
+
+![Aplicação rodando na OCI](screenshots/deploy-oci.png)
 
 ## Melhorias Futuras
 
