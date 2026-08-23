@@ -290,6 +290,8 @@ base de conhecimento (acesse `screenshots/deploy-oci.png` para a imagem completa
 
 ![Aplicação rodando na OCI](screenshots/deploy-oci.png)
 
+<img src="screenshots/Chat_Preparatorio.png" alt="Chat Preparatório certificação CRC" width="600">
+
 ## Melhorias Futuras
 
 - Expor na interface os modos de resposta já existentes no backend (resumo,
@@ -297,6 +299,8 @@ base de conhecimento (acesse `screenshots/deploy-oci.png` para a imagem completa
 - Permitir upload de novos documentos diretamente pela interface.
 - Adicionar mais materiais de estudo à base de conhecimento.
 - Automatizar o deploy (CI/CD) na OCI.
+- Adicionar recurso de voz.
+- Criar agenda de estudos e lembretes diários.
 - Adicionar testes automatizados para a interface Streamlit.
 
 ## Autor: Marilene Narciso
