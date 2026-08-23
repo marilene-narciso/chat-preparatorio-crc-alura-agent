@@ -1,16 +1,16 @@
-# Chat Preparatório para Aprovação do CRC
+# 🥇 Chat Preparatório para Aprovação do CRC
 
 Agente de inteligência artificial desenvolvido para o **Challenge Alura Agente**, do
-programa **ONE (Oracle Next Education) — AI for Tech**.
+programa **ONE — AI for Tech**.
 
-## Sobre o Projeto
+## 💡 Sobre o Projeto
 
 O Chat Preparatório para Aprovação do CRC é um assistente de estudos que responde
 perguntas sobre o conteúdo do **Exame de Suficiência do Conselho Federal de
 Contabilidade (CRC)**, usando exclusivamente uma base de documentos de estudo (PDF e
 CSV) como fonte de conhecimento — não o conhecimento genérico do modelo de IA.
 
-## Problema
+## ❓ Problema
 
 Quem estuda para o Exame de Suficiência do CRC costuma ter vários materiais de estudo
 espalhados (apostilas, resumos, provas comentadas) e precisa ler tudo manualmente para
@@ -18,14 +18,14 @@ tirar uma dúvida pontual. Não há uma forma rápida de "perguntar" diretamente
 conteúdo desses materiais e obter uma resposta confiável, sem risco de o assistente
 inventar informações que não estão nos documentos.
 
-## Objetivo
+## 🎯 Objetivo
 
 Criar um agente de IA capaz de responder perguntas sobre os materiais de estudo do CRC,
 usando a técnica de **RAG (Retrieval-Augmented Generation)**: buscar os trechos mais
 relevantes nos documentos e usá-los como base para a resposta do modelo de linguagem,
 deixando claro quando a informação não estiver disponível na base.
 
-## Como Funciona
+## ⚡ Como Funciona
 
 1. Os documentos de estudo (PDF/CSV) ficam em `data/documentos/`.
 2. Na primeira execução, cada documento é lido e dividido em trechos menores
@@ -44,7 +44,7 @@ pelo menu lateral. Ela reúne vídeos de apoio do YouTube, organizados em abas p
 categoria (Revisão de Matéria e Revisão de Provas), lidos de
 `data/videos.json`. É um conteúdo complementar, independente do pipeline RAG.
 
-## Arquitetura da Solução
+## 🏛️  Arquitetura da Solução
 
 ```mermaid
 flowchart TD
@@ -81,7 +81,7 @@ O fluxo funciona em duas etapas:
   final com base neles.
 - A resposta, junto com as fontes usadas, retorna para a usuária pela interface.
 
-## Base de Conhecimento
+## 📚 Base de Conhecimento
 
 A base de conhecimento fica em `data/documentos/` e contém:
 
@@ -91,7 +91,7 @@ A base de conhecimento fica em `data/documentos/` e contém:
 - `prova_cfc20252_tipo01_comentada_parte 2.pdf` — prova comentada do Exame de Suficiência (Edital nº 02/2025)
 - `exemplo_topicos_crc.csv` — CSV de exemplo, criado para este projeto, para demonstrar o suporte a arquivos CSV além de PDF
 
-## Tecnologias Utilizadas
+## 📂 Tecnologias Utilizadas
 
 - **Python** — linguagem principal do projeto
 - **LangChain** (`langchain-core`, `langchain-text-splitters`, `langchain-community`) — divisão de texto em trechos e integração com o índice vetorial
@@ -131,7 +131,7 @@ chat-crc-challenge/
 └── README.md
 ```
 
-## Pré-requisitos
+## 🔑 Pré-requisitos
 
 - Python 3.9 ou superior (evite versões muito novas/beta — neste projeto, o Python
   3.14 não tinha pacotes prontos para uma das dependências e exigia compilação; o
@@ -139,7 +139,7 @@ chat-crc-challenge/
 - Uma chave de API do Gemini, gratuita, obtida em
   [aistudio.google.com/apikey](https://aistudio.google.com/apikey)
 
-## Instalação
+## 🛠️ Instalação
 
 ```bash
 # Clonar o repositório
@@ -164,7 +164,7 @@ pip install -r requirements-dev.txt
 pytest
 ```
 
-## Configuração da API
+## ⚙️🔗 Configuração da API
 
 1. Copie o arquivo de exemplo:
    ```bash
@@ -177,7 +177,7 @@ pytest
    ```
 3. O `.env` nunca deve ser enviado ao GitHub — ele já está listado no `.gitignore`.
 
-## Como Executar
+## 💡⚙️ Como Executar
 
 ```bash
 # Rodar a interface web
@@ -195,7 +195,7 @@ Também é possível rodar o pipeline pelo terminal, sem interface:
 python -m src.rag
 ```
 
-## Exemplos de Perguntas
+## 💡 Exemplos de Perguntas
 
 Perguntas reais testadas contra a base de conhecimento (ver `VALIDACAO.md` para o
 roteiro completo):
@@ -206,7 +206,7 @@ roteiro completo):
 - "Quanto tempo os candidatos têm para realizar essa prova do Exame de Suficiência?"
 - "A partir de que ano a IFRS 18 entra em vigor de forma obrigatória?"
 
-## Exemplos de Respostas
+## 🗣️ Exemplos de Respostas
 
 Respostas reais geradas pelo sistema (cópia literal, sem edição):
 
@@ -226,7 +226,7 @@ Respostas reais geradas pelo sistema (cópia literal, sem edição):
 >
 > **Resposta:** Não encontrei essa informação na base de conhecimento.
 
-## Testes Realizados
+## 📝 Testes Realizados
 
 - **Testes automatizados** (`pytest`, pasta `tests/`): um arquivo de teste por módulo
   (`leitor_pdf`, `leitor_csv`, `leitor_documentos`, `indexador`, `tutor`, `gemini_client`,
@@ -240,7 +240,7 @@ Respostas reais geradas pelo sistema (cópia literal, sem edição):
   respondida, pergunta fora da base, aviso de "sem documentos" e tratamento de erro de
   API — todos os cenários funcionaram como esperado.
 
-## Limitações
+## ⛔ Limitações
 
 - Depende da cota gratuita da API do Gemini, que se mostrou instável durante o
   desenvolvimento (erros temporários de limite de uso); o código tenta de novo
@@ -257,7 +257,7 @@ Respostas reais geradas pelo sistema (cópia literal, sem edição):
   balanceamento de carga ou autenticação — adequado para demonstração, não para uso
   em produção com muitos usuários simultâneos.
 
-## Segurança
+## 🔒 Segurança
 
 - A chave da API nunca é escrita no código-fonte — é lida apenas da variável de
   ambiente `GOOGLE_API_KEY` (`src/config.py`).
@@ -269,7 +269,7 @@ Respostas reais geradas pelo sistema (cópia literal, sem edição):
   busca por padrões de chave de API, senhas, tokens e caminhos pessoais em todos os
   arquivos e em todo o histórico de commits — nenhum problema crítico foi encontrado.
 
-## Deploy na OCI
+## ▶️ Deploy na OCI
 
 A aplicação está implantada em uma instância **OCI Compute** (shape
 `VM.Standard.E2.1.Micro`, camada Always Free, região São Paulo), seguindo o roteiro
@@ -283,7 +283,7 @@ virtual, instalação via `requirements.txt`, configuração da `GOOGLE_API_KEY`
 > gratuita. Por rodar sem autenticação, o uso indevido por terceiros pode consumir a
 > cota da API — o link é mantido no ar para fins de avaliação.
 
-## Evidência da Aplicação
+## ▶️ Evidência da Aplicação
 
 Print real da aplicação em produção na OCI, respondendo a uma pergunta com base na
 base de conhecimento (acesse `screenshots/deploy-oci.png` para a imagem completa):
@@ -296,7 +296,7 @@ base de conhecimento (acesse `screenshots/deploy-oci.png` para a imagem completa
 <img src="screenshots/Central_de_estudos02.png" alt="Chat Preparatório certificação CRC" width="600">
 
 
-## Melhorias Futuras
+## 👣 Melhorias Futuras
 
 - Expor na interface os modos de resposta já existentes no backend (resumo,
   detalhado, perguntas de estudo, explicação de alternativas).
@@ -307,4 +307,17 @@ base de conhecimento (acesse `screenshots/deploy-oci.png` para a imagem completa
 - Criar agenda de estudos e lembretes diários.
 - Adicionar testes automatizados para a interface Streamlit.
 
-## Autor: Marilene Narciso
+## 🤝 Contribuições
+Contribuições são bem-vindas! Sinta-se livre para:
+
+Abrir issues com sugestões ou bugs.
+Enviar pull requests com melhorias de visualização ou código.
+
+## 📜 Licença
+Este projeto é de uso acadêmico e está licenciado sob os termos da MIT License.
+
+## 👩‍💻 Autora
+Marilene Narciso
+Profissional com atuação em projetos e transformação digital.
+
+
