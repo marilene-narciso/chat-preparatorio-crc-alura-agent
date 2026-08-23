@@ -288,9 +288,13 @@ virtual, instalação via `requirements.txt`, configuração da `GOOGLE_API_KEY`
 Print real da aplicação em produção na OCI, respondendo a uma pergunta com base na
 base de conhecimento (acesse `screenshots/deploy-oci.png` para a imagem completa):
 
-![Aplicação rodando na OCI](screenshots/deploy-oci.png)
 
 <img src="screenshots/Chat_Preparatorio.png" alt="Chat Preparatório certificação CRC" width="600">
+
+<img src="screenshots/Central_de_estudos01.png" alt="Chat Preparatório certificação CRC" width="600">
+
+<img src="screenshots/Central_de_estudos02.png" alt="Chat Preparatório certificação CRC" width="600">
+
 
 ## Melhorias Futuras
 
